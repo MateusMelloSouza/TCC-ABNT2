@@ -1,0 +1,7 @@
+# .tcc-workflow/benign-notices.txt — one regular expression per line.
+# LaTeX error lines matching a pattern are hidden by tools/compile-check.sh.
+# Only list a message after you have PROVED it harmless (the PDF is complete and correct
+# and the cause is understood). The classic UniforTeX2 "Missing \begin{document}" was
+# listed here for years and turned out to be a real bug (see templates/unifortex2.md).
+# Example (commented out):
+# ^\./lib/preambulo\.tex:[0-9]+: Package foo Warning

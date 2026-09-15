@@ -1,0 +1,42 @@
+# LaTeX build products (abnTeX2 thesis). Copy to the project root as ".gitignore".
+build/
+*.aux
+*.bbl
+*.blg
+*.log
+*.toc
+*.lof
+*.lot
+*.loq
+*.loa
+*.out
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.synctex(busy)
+*.acn
+*.acr
+*.alg
+*.glo
+*.gls
+*.glg
+*.ist
+*.idx
+*.ilg
+*.ind
+*.run.xml
+*.bcf
+*.nav
+*.snm
+*.vrb
+*-blx.bib
+
+# Session workflow: keep STATUS/TODO/logs, ignore previews and snapshots
+.tcc-workflow/*.pdf
+.tcc-workflow/ARCHIVE-*/
+.tcc-workflow/_*/
+
+# Editors / OS
+.vscode/ltex*
+.DS_Store
+Thumbs.db

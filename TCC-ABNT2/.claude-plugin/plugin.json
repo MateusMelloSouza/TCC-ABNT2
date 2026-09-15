@@ -1,0 +1,13 @@
+{
+  "name": "tcc-abnt2",
+  "version": "2.0.0",
+  "description": "Skill para escrever, formatar, revisar e compilar TCC, dissertação e tese em LaTeX (abnTeX2) segundo as normas ABNT — com perfil UniforTeX2 (UNIFOR), workflow de sessões de escrita e auditoria pré-depósito.",
+  "author": {
+    "name": "Mateus de Mello Souza",
+    "url": "https://github.com/MateusMelloSouza"
+  },
+  "homepage": "https://github.com/MateusMelloSouza/TCC-ABNT2",
+  "repository": "https://github.com/MateusMelloSouza/TCC-ABNT2",
+  "license": "MIT",
+  "keywords": ["abnt", "abntex2", "latex", "tcc", "monografia", "dissertacao", "tese", "unifor", "unifortex2", "nbr14724", "nbr10520", "nbr6023"]
+}

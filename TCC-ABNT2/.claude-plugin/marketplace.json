@@ -1,0 +1,23 @@
+{
+  "name": "tcc-abnt2",
+  "description": "Marketplace com o plugin tcc-abnt2: LaTeX + abnTeX2 + normas ABNT para trabalhos acadêmicos brasileiros.",
+  "owner": {
+    "name": "Mateus de Mello Souza",
+    "url": "https://github.com/MateusMelloSouza"
+  },
+  "plugins": [
+    {
+      "name": "tcc-abnt2",
+      "source": "./",
+      "description": "Escrever, formatar, revisar e compilar TCC/dissertação/tese em LaTeX (abnTeX2) segundo a ABNT; perfil UniforTeX2 (UNIFOR); workflow de sessões; auditoria pré-depósito.",
+      "version": "2.0.0",
+      "author": { "name": "Mateus de Mello Souza", "url": "https://github.com/MateusMelloSouza" },
+      "homepage": "https://github.com/MateusMelloSouza/TCC-ABNT2",
+      "repository": "https://github.com/MateusMelloSouza/TCC-ABNT2",
+      "license": "MIT",
+      "keywords": ["abnt", "abntex2", "latex", "tcc", "unifor"],
+      "category": "writing",
+      "tags": ["academic", "latex", "brazil"]
+    }
+  ]
+}

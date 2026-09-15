@@ -1,0 +1,40 @@
+{
+    // .vscode/settings.json — LaTeX Workshop for an abnTeX2 thesis whose \documentclass
+    // may live in an \input'ed preamble (UniforTeX2: lib/preambulo.tex).
+    //
+    // The extension detects the root file by searching for \documentclass; with a
+    // preamble file it picks the preamble, compiles it alone from the wrong directory and
+    // fails with "File 'lib/xxx.sty' not found". These recipes bypass detection and always
+    // build %WORKSPACE_FOLDER%/main.tex. Keep "% !TEX root = ../main.tex" as the first
+    // line of every chapter file as well.
+    "latex-workshop.latex.rootFile.useSubFile": false,
+    "latex-workshop.latex.rootFile.doNotPrompt": true,
+    "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%",
+    "latex-workshop.latex.autoBuild.run": "never",
+    "latex-workshop.latex.autoClean.run": "never",
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-workshop.latex.recipes": [
+        { "name": "Thesis: latexmk (recommended)", "tools": ["latexmk-thesis"] },
+        { "name": "Thesis: manual passes", "tools": ["pdflatex-thesis", "bibtex-thesis", "makeglossaries-thesis", "pdflatex-thesis", "pdflatex-thesis"] }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            // -cd enters the folder of main.tex so the project's .latexmkrc is read
+            "name": "latexmk-thesis",
+            "command": "latexmk",
+            "args": ["-cd", "-pdf", "-synctex=1", "-interaction=nonstopmode", "-file-line-error", "%WORKSPACE_FOLDER%/main.tex"],
+            "env": {}
+        },
+        {
+            "name": "pdflatex-thesis",
+            "command": "pdflatex",
+            "args": ["-synctex=1", "-interaction=nonstopmode", "-file-line-error", "-output-directory=%WORKSPACE_FOLDER%", "%WORKSPACE_FOLDER%/main.tex"],
+            "env": {}
+        },
+        { "name": "bibtex-thesis", "command": "bibtex", "args": ["main"], "env": {}, "cwd": "%WORKSPACE_FOLDER%" },
+        { "name": "makeglossaries-thesis", "command": "makeglossaries", "args": ["main"], "env": {}, "cwd": "%WORKSPACE_FOLDER%" }
+    ],
+    "latex-workshop.message.badbox.show": false,
+    "cSpell.language": "pt,pt-BR,en",
+    "[latex]": { "editor.wordWrap": "on", "files.trimTrailingWhitespace": false }
+}
