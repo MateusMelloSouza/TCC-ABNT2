@@ -1,0 +1,27 @@
+% Elsevier journal article (elsarticle). Verified with TeX Live 2023.
+% Author-year: \documentclass[preprint,12pt,authoryear]{elsarticle} + elsarticle-harv
+\documentclass[preprint,12pt]{elsarticle}
+\usepackage{amsmath}
+\journal{Journal Name}
+\begin{document}
+\begin{frontmatter}
+\title{Paper Title}
+\author[inst1]{First Author\corref{cor1}}
+\ead{first@example.org}
+\cortext[cor1]{Corresponding author}
+\author[inst2]{Second Author}
+\affiliation[inst1]{organization={Department, University}, city={City}, country={Country}}
+\affiliation[inst2]{organization={Institute}, city={City}, country={Country}}
+\begin{abstract}
+Abstract text.
+\end{abstract}
+\begin{keyword}
+first keyword \sep second keyword \sep third keyword
+\end{keyword}
+\end{frontmatter}
+\section{Introduction}
+Literate programming \cite{knuth1984literate} and \LaTeX\ \cite{lamport1994latex}.
+% \citet needs author data: use elsarticle-num-names (numeric) or elsarticle-harv (authoryear).
+\bibliographystyle{elsarticle-num}
+\bibliography{refs}
+\end{document}

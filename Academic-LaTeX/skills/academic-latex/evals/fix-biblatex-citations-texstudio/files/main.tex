@@ -1,0 +1,33 @@
+\documentclass[12pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage[backend=biber, style=apa]{biblatex}
+\addbibresource{refs}
+\usepackage{hyperref}
+
+\title{Effects of Sleep on Memory Consolidation in Students}
+\author{Student Name}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Introduction}\label{ch:intro}
+Sleep supports the consolidation of newly learned material \parencite{walker2009role}.
+\textcite{smith2020} found that students who slept less recalled fewer word pairs,
+and a later survey reached the same conclusion \parencite{lee2019}.
+
+\begin{figure}[htbp]
+  \centering
+  \label{fig:design}
+  \includegraphics[width=0.5\linewidth]{example-image}
+  \caption{Study design.}
+\end{figure}
+
+Figure~\ref{fig:design} shows the design of the study.
+
+\printbibliography
+\end{document}

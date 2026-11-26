@@ -1,0 +1,53 @@
+% Fixture for tests: a thesis with one instance of (almost) every problem audit-tex.py detects.
+\documentclass[12pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{times}
+\usepackage[backend=biber, style=apa]{biblatex}
+\addbibresource{refs}
+\usepackage{cleveref}
+\usepackage{hyperref}
+\usepackage[acronym]{glossaries}
+\makeglossaries
+\newacronym{gpu}{GPU}{graphics processing unit}
+\newacronym{cpu}{CPU}{central processing unit}
+\newacronym{api}{API}{application programming interface}
+\begin{document}
+\begin{abstract}
+This abstract has exactly ten words in it, no more.
+\par\textbf{Keywords:} alpha; beta; gamma
+\end{abstract}
+\chapter{Introduction}\label{ch:intro}
+As shown in Figure 2, results improve.
+\gls{gpu} computing is fast \parencite{smith2020, missing2021}. See \textcite{Smith2020}.
+The API is described in \cref{sec:api} and in Figure \ref{fig:b}.
+$$ E = mc^2 $$
+{\bf bold, the old way}
+\begin{figure}[H]
+  \label{fig:a}
+  \caption{Label before caption}
+  \includegraphics{figures/Plot}
+\end{figure}
+\begin{figure}[htbp]
+  \includegraphics{figures/missing}
+  \caption{Never referenced}
+  \label{fig:unref}
+\end{figure}
+\begin{figure}[htbp]
+  \caption{Referenced earlier}
+  \label{fig:b}
+\end{figure}
+\begin{figure}[htbp]
+  \caption{Placed before its first reference}
+  \label{fig:c}
+\end{figure}
+As \cref{fig:c} and \cref{fig:a} show, \ldots
+% TODO: cite the survey here
+\section{API}\label{sec:api}
+\label{sec:api}
+\begin{equation} a = b \label{eq:unused} \end{equation}
+\begin{eqnarray} x &=& y \end{eqnarray}
+\input{chapters/extra}
+\printbibliography
+\end{document}

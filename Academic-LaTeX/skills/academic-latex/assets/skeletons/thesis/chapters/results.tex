@@ -1,0 +1,24 @@
+% !TEX root = ../main.tex
+\chapter{Results}\label{ch:results}
+
+% Report what was found, objectively; call out every figure and table before it
+% appears; give numbers with units, uncertainty and denominators.
+
+\section{Main results}\label{sec:main-results}
+
+% TODO: report the results.
+\Cref{tab:results} compares the methods.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Comparison of methods (mean $\pm$ standard deviation over five runs).}
+  \label{tab:results}
+  \begin{tabular}{l S[table-format=2.1(1), uncertainty-mode=separate] S[table-format=3.0]}
+    \toprule
+    {Method} & {Accuracy (\%)} & {Time (\unit{\milli\second})} \\
+    \midrule
+    Baseline & 71.2(4) & 120 \\
+    Proposed & 78.9(3) & 135 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

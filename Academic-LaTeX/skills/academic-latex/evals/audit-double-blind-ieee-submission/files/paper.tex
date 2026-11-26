@@ -1,0 +1,76 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{pdftitle={Fast Sparse Attention on Edge GPUs}, pdfauthor={Jane Doe, Rui Costa}}
+
+\begin{document}
+\title{Fast Sparse Attention on Edge GPUs}
+\author{\IEEEauthorblockN{Jane Doe}
+\IEEEauthorblockA{\textit{Embedded AI Lab} \\ \textit{University of Somewhere}\\ jane.doe@example.edu}
+\and
+\IEEEauthorblockN{Rui Costa}
+\IEEEauthorblockA{\textit{Embedded AI Lab} \\ \textit{University of Somewhere}\\ rui.costa@example.edu}}
+\maketitle
+
+\begin{abstract}
+Transformer models are expensive to run on edge devices. We propose a sparse
+attention kernel for embedded GPUs that skips low-scoring blocks. On a Jetson
+board it is 2.1 times faster than dense attention with an accuracy loss below
+0.5 points.
+\end{abstract}
+
+\begin{IEEEkeywords}
+sparse attention, edge computing, GPU kernels
+\end{IEEEkeywords}
+
+\section{Introduction}
+Attention mechanisms \cite{vaswani2017attention} dominate modern sequence
+models, but their cost grows quadratically with the sequence length
+\cite{vaswani2017}. In our previous work \cite{doe2024sparse}, we showed that
+most attention blocks contribute little to the output. Efficient inference on
+embedded GPUs has been studied before \cite{chen2021edge}.
+
+\section{Method}
+Our kernel scores each block, keeps the top-$k$ blocks and computes attention
+only for them, as illustrated in Figure 2.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{example-image}
+  \caption{Kernel pipeline.}
+  \label{fig:pipeline}
+\end{figure}
+\vspace{-3mm}
+
+\section{Results}
+Table~\ref{tab:speed} reports the speedup on the Jetson board.
+
+\begin{table}[t]
+  \caption{Speedup on the Jetson board}
+  \label{tab:speed}
+  \centering
+  \begin{tabular}{lc}
+    \toprule
+    Method & Speedup \\
+    \midrule
+    Dense attention & 1.0 \\
+    Ours & 2.1 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\vspace{-2mm}
+
+\section{Conclusion}
+Block-sparse attention makes transformer inference practical on embedded GPUs.
+
+\section*{Acknowledgment}
+This work was funded by grant XYZ-123 of the Somewhere Research Council. We
+thank our colleagues at the Embedded AI Lab of the University of Somewhere.
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+\end{document}

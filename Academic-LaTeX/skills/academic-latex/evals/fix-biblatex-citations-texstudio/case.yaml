@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: fix-biblatex-citations-texstudio
+expected_outcome: |
+  The project compiles with biber and every citation resolves (no undefined citations, a 
+  References section appears). The fixes cover the real causes: biblatex needs biber, not BibTeX 
+  (TeXstudio: Options > Configure > Build > Default Bibliography Tool = Biber, or a latexmk 
+  compiler); \addbibresource needs the .bib extension; the unescaped & in a .bib title is 
+  escaped; the two-person author field 'John Smith, Jane Doe' is rewritten with ' and '. Ideally 
+  the \label placed before \caption in the figure is also fixed or reported.
+context:
+  scaffold_script: place-files.sh

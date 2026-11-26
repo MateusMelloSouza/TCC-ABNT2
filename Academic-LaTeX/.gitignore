@@ -1,0 +1,23 @@
+# build products of local tests
+build/
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.log
+*.run.xml
+*.toc
+*.lof
+*.lot
+*.out
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.pdf
+!skills/**/*.pdf
+!tests/fixtures/**/*.pdf
+__pycache__/
+*.pyc
+academic-latex-workspace/
+.DS_Store
+Thumbs.db

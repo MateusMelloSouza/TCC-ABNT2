@@ -1,0 +1,112 @@
+% !TEX program = pdflatex
+% !BIB program = biber
+% =============================================================================
+%  Thesis / dissertation skeleton (academic-latex skill).
+%  Generic: book class + geometry + setspace + biblatex. If your graduate school
+%  or department provides an official template, use that instead — its rules win.
+%  Build:  latexmk          (reads .latexmkrc; runs biber and every pass needed)
+%  Each to-do comment below is a tracked debt: audit-tex.py lists them until resolved.
+% =============================================================================
+% Optional PDF/A for archival deposit (TeX Live 2023 or newer). It must be the
+% very first command of the file, before \documentclass:
+% \DocumentMetadata{pdfstandard=a-2b, lang=en-US}
+%% <<academic-latex:class>>
+\documentclass[12pt, a4paper, oneside, openany]{book}
+%% <</academic-latex:class>>
+% twoside,openright: printed and bound copies (chapters start on right pages).
+% letterpaper instead of a4paper in the US and Canada.
+
+% ---- Engine, fonts, language ---------------------------------------------------
+%% <<academic-latex:engine>>
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}          % or: \usepackage{newtxtext,newtxmath} for a Times-like face
+%% <</academic-latex:engine>>
+%% <<academic-latex:language>>
+\usepackage[english]{babel}   % last option = main language, e.g. [ngerman,english]
+%% <</academic-latex:language>>
+\usepackage{microtype}
+
+% ---- Page layout (your graduate school's rules override these values) ----------
+%% <<academic-latex:geometry>>
+\usepackage[top=25mm, bottom=25mm, left=35mm, right=25mm]{geometry}  % wide left margin for binding
+%% <</academic-latex:geometry>>
+\usepackage{setspace}
+%% <<academic-latex:spacing>>
+\onehalfspacing               % \doublespacing where required; footnotes and floats stay single-spaced
+%% <</academic-latex:spacing>>
+\pagestyle{plain}             % page number centred in the footer on every page
+% Page number in the top-right corner instead (chapter pages included):
+% \usepackage{fancyhdr}
+% \fancypagestyle{plain}{\fancyhf{}\fancyhead[R]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+% \pagestyle{plain}
+
+% ---- Figures, tables, mathematics, units ---------------------------------------
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}         % \toprule \midrule \bottomrule; no vertical rules
+\usepackage{siunitx}          % \num{12345.6}, \qty{3.5}{\milli\second}, S columns
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[font=small, labelfont=bf]{caption}
+\usepackage{subcaption}       % subfigures; never the obsolete subfigure/subfig packages
+\usepackage{csquotes}         % \enquote{...}; language-aware quotation marks (biblatex uses it)
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+% ---- Bibliography ---------------------------------------------------------------
+%% <<academic-latex:bibliography>>
+\usepackage[backend=biber, style=authoryear]{biblatex}
+%% <</academic-latex:bibliography>>
+\addbibresource{references.bib}   % with the .bib extension (biblatex)
+
+% ---- Metadata (used on the title page and in the PDF properties) ----------------
+% TODO: replace every value below with your own.
+\newcommand{\thesistitle}{Title of the Thesis: An Informative Subtitle}
+\newcommand{\thesisauthor}{Author Full Name}
+\newcommand{\thesisdegree}{Doctor of Philosophy}
+\newcommand{\thesisprogramme}{Programme or Field of Study}
+\newcommand{\thesisdepartment}{Department of Something}
+\newcommand{\thesisuniversity}{University Name}
+\newcommand{\thesissupervisor}{Prof.\ Supervisor Name}
+\newcommand{\thesisdate}{Month Year}
+
+% ---- Hyperlinks, acronyms, clever references (keep this order) -------------------
+\usepackage[hidelinks]{hyperref}  % drop hidelinks for coloured links in the PDF
+\hypersetup{pdftitle={\thesistitle}, pdfauthor={\thesisauthor}}
+\usepackage[acronym, nomain, toc, nonumberlist, nopostdot, style=long]{glossaries}  % after hyperref
+\makenoidxglossaries          % no external tool; switch to \makeglossaries + makeglossaries for big lists
+\input{frontmatter/abbreviations}
+\usepackage[capitalise, noabbrev]{cleveref}    % always the last package
+
+\begin{document}
+
+\frontmatter                  % roman page numbers, unnumbered chapters
+\hypersetup{pageanchor=false} % the title page restarts the page counter: avoid duplicate PDF anchors
+\input{frontmatter/titlepage}
+\hypersetup{pageanchor=true}
+\input{frontmatter/declaration}
+\input{frontmatter/abstract}
+\input{frontmatter/acknowledgements}
+\tableofcontents
+\listoffigures
+\listoftables
+\printnoidxglossary[type=\acronymtype, title={List of Abbreviations}]
+
+\mainmatter                   % arabic page numbers from Chapter 1
+\include{chapters/introduction}
+\include{chapters/background}
+\include{chapters/methodology}
+\include{chapters/results}
+\include{chapters/discussion}
+\include{chapters/conclusion}
+
+% References before the appendices (common); move this line below them if your
+% institution wants the bibliography last.
+\printbibliography[heading=bibintoc, title={References}]
+
+\appendix
+\include{appendices/appendix-a}
+
+\end{document}

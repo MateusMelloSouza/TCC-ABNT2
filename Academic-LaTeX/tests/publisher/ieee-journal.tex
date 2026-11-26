@@ -1,0 +1,21 @@
+% IEEE journal/transactions paper (IEEEtran). Verified with TeX Live 2023.
+\documentclass[journal]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath}
+\begin{document}
+\title{Paper Title}
+\author{First~Author,~\IEEEmembership{Member,~IEEE,} and Second~Author%
+\thanks{F. Author is with the Department of X, University Y (e-mail: first@example.org).}}
+\markboth{Journal of \LaTeX\ Class Files,~Vol.~1, No.~1, January~2026}{Author \MakeLowercase{\textit{et al.}}: Paper Title}
+\maketitle
+\begin{abstract}
+Abstract text.
+\end{abstract}
+\begin{IEEEkeywords}
+first keyword, second keyword
+\end{IEEEkeywords}
+\section{Introduction}
+\IEEEPARstart{T}{his} paper builds on~\cite{knuth1984literate}.
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+\end{document}

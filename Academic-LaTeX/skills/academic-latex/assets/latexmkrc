@@ -1,0 +1,25 @@
+# .latexmkrc — latexmk settings for this project (Overleaf reads this file too).
+# latexmk already runs LaTeX, biber or bibtex, makeindex and as many passes as
+# needed; the rules below add the tools it does not know about by itself.
+$pdf_mode = 1;        # 1 = pdflatex, 4 = lualatex, 5 = xelatex
+$bibtex_use = 2;      # run biber/bibtex whenever citations or .bib files change
+
+# glossaries / acronyms with \makeglossaries (not needed with \makenoidxglossaries)
+add_cus_dep('glo', 'gls', 0, 'run_makeglossaries');
+add_cus_dep('acn', 'acr', 0, 'run_makeglossaries');
+# nomenclature (nomencl package, \makenomenclature)
+add_cus_dep('nlo', 'nls', 0, 'run_makenomenclature');
+$clean_ext .= ' acn acr alg glg glo gls ist nlo nls nlg run.xml bbl-SAVE-ERROR';
+
+sub run_makeglossaries {
+  my ($base, $path) = fileparse($_[0]);
+  my $cwd = Cwd::getcwd();
+  chdir $path if $path;            # works with -outdir/-auxdir builds
+  my $ret = system('makeglossaries', $base);
+  chdir $cwd;
+  return $ret;
+}
+
+sub run_makenomenclature {
+  return system("makeindex \"$_[0].nlo\" -s nomencl.ist -o \"$_[0].nls\"");
+}

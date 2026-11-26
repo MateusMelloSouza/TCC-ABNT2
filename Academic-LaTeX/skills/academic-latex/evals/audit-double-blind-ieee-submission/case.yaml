@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: audit-double-blind-ieee-submission
+expected_outcome: |
+  A prioritised report that finds the anonymity leaks (author names and affiliations in \author, 
+  the pdfauthor metadata, the first-person self-citation 'In our previous work', the identifying 
+  acknowledgement and grant), the layout hacks (negative \vspace), the figure that is never 
+  referenced and the hard-coded 'Figure 2', and the .bib problems (duplicate Vaswani entry, 
+  unprotected GPU that IEEEtran lowercases, DOI stored as a URL); it states the page count 
+  against the 6-page limit and does not rewrite the paper's prose.
+context:
+  scaffold_script: place-files.sh

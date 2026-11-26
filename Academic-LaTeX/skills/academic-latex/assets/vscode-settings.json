@@ -1,0 +1,29 @@
+{
+    // .vscode/settings.json — LaTeX Workshop for a thesis or paper project.
+    //
+    // LaTeX Workshop guesses the root file; in multi-file projects it can pick a
+    // chapter (or a preamble file) and compile it alone. These recipes always
+    // build %WORKSPACE_FOLDER%/main.tex with latexmk, which reads the project's
+    // .latexmkrc (engine, glossaries rules) and runs biber/bibtex as needed.
+    // Keep "% !TEX root = ../main.tex" as the first line of every chapter file too.
+    "latex-workshop.latex.rootFile.useSubFile": false,
+    "latex-workshop.latex.rootFile.doNotPrompt": true,
+    "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%",
+    "latex-workshop.latex.autoBuild.run": "never",
+    "latex-workshop.latex.autoClean.run": "never",
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-workshop.latex.recipes": [
+        { "name": "latexmk (main.tex, uses .latexmkrc)", "tools": ["latexmk-main"] }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            // -cd enters the folder of main.tex so the project's .latexmkrc is read
+            "name": "latexmk-main",
+            "command": "latexmk",
+            "args": ["-cd", "-synctex=1", "-interaction=nonstopmode", "-file-line-error", "%WORKSPACE_FOLDER%/main.tex"],
+            "env": {}
+        }
+    ],
+    "latex-workshop.message.badbox.show": false,
+    "[latex]": { "editor.wordWrap": "on", "files.trimTrailingWhitespace": false }
+}

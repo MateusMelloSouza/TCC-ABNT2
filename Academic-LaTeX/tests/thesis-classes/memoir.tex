@@ -1,0 +1,20 @@
+% memoir thesis setup documented in references/templates/thesis-classes.md. Verified with TeX Live 2023.
+\documentclass[12pt, a4paper, oneside]{memoir}
+\setlrmarginsandblock{35mm}{25mm}{*}
+\setulmarginsandblock{25mm}{25mm}{*}
+\checkandfixthelayout
+\OnehalfSpacing
+\usepackage{graphicx}       % the madsen chapter style uses \resizebox
+\chapterstyle{madsen}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\begin{document}
+\frontmatter
+\tableofcontents*
+\mainmatter
+\chapter{Introduction}\label{ch:intro}
+Text, see Chapter~\ref{ch:intro}.
+\backmatter
+\end{document}

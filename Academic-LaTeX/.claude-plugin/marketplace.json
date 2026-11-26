@@ -1,0 +1,23 @@
+{
+  "name": "academic-latex",
+  "description": "Marketplace with the academic-latex plugin: LaTeX theses and papers in any citation style and template.",
+  "owner": {
+    "name": "Mateus de Mello Souza",
+    "url": "https://github.com/MateusMelloSouza"
+  },
+  "plugins": [
+    {
+      "name": "academic-latex",
+      "source": "./",
+      "description": "Write, cite, format, compile and audit theses and papers in LaTeX (any style guide, any template); writing-session workflow; pre-submission audits.",
+      "version": "1.0.0",
+      "author": { "name": "Mateus de Mello Souza", "url": "https://github.com/MateusMelloSouza" },
+      "homepage": "https://github.com/MateusMelloSouza/TCC-ABNT2",
+      "repository": "https://github.com/MateusMelloSouza/TCC-ABNT2",
+      "license": "MIT",
+      "keywords": ["latex", "thesis", "bibtex", "biblatex", "overleaf"],
+      "category": "writing",
+      "tags": ["academic", "latex", "research"]
+    }
+  ]
+}

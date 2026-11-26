@@ -1,0 +1,14 @@
+% Fixture for tests: compiles to a PDF, but with an undefined citation, an undefined
+% reference, a duplicate label and an overfull line.
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[backend=biber, style=numeric]{biblatex}
+\addbibresource{refs.bib}
+\begin{document}
+\section{Intro}\label{sec:intro}
+Known \autocite{known2020}, unknown \autocite{nokey2021}, see Section~\ref{sec:missing}.
+\label{sec:intro}
+\noindent\rule{1.1\textwidth}{2pt}
+\printbibliography
+\end{document}

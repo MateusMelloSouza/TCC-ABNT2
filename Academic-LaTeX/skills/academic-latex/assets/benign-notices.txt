@@ -1,0 +1,8 @@
+# .academic-workflow/benign-notices.txt — one regular expression per line.
+# LaTeX error lines matching a pattern are hidden by tools/compile-check.sh.
+# Only list a message after you have PROVED it harmless: the PDF is complete and
+# correct and the cause is understood. "Benign" errors are often real bugs — one
+# template's famous harmless "Missing \begin{document}" turned out to print a
+# stray word on the cover page.
+# Example (commented out):
+# ^\./mytemplate\.cls:[0-9]+: Package foo Warning

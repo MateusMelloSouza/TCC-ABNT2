@@ -1,0 +1,20 @@
+% AMS journal article (amsart). Verified with TeX Live 2023.
+\documentclass{amsart}
+\newtheorem{theorem}{Theorem}[section]
+\begin{document}
+\title{Paper Title}
+\author{First Author}
+\address{Department, University, City, Country}
+\email{first@example.org}
+\subjclass[2020]{Primary 68U15; Secondary 68N15}
+\keywords{first keyword, second keyword}
+\begin{abstract}
+The abstract comes BEFORE \textbackslash maketitle in the AMS classes.
+\end{abstract}
+\maketitle
+\section{Introduction}
+\begin{theorem}\label{thm:main} A statement.\end{theorem}
+See \cite{knuth1984literate}.
+\bibliographystyle{amsplain}
+\bibliography{refs}
+\end{document}

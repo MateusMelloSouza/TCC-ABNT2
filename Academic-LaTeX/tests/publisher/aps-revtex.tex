@@ -1,0 +1,19 @@
+% APS journal article (REVTeX 4.2). Verified with TeX Live 2023.
+% Physical Review Letters: [aps,prl,reprint]; preprint layout: [aps,pra,preprint]; AIP: [aip,jcp]
+\documentclass[aps,prl,reprint]{revtex4-2}
+\begin{document}
+\title{Paper Title}
+\author{First Author}
+\email{first@example.org}
+\affiliation{Department, University, City, Country}
+\author{Second Author}
+\affiliation{Institute, City, Country}
+\date{\today}
+\begin{abstract}
+The abstract comes BEFORE \textbackslash maketitle in REVTeX.
+\end{abstract}
+\maketitle
+\section{Introduction}
+Literate programming~\cite{knuth1984literate}; see also Ref.~\cite{lamport1994latex}.
+\bibliography{refs}   % the aps option selects apsrev4-2.bst: no \bibliographystyle needed
+\end{document}

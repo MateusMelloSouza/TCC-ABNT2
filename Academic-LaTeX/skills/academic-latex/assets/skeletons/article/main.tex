@@ -1,0 +1,126 @@
+% !TEX program = pdflatex
+% !BIB program = biber
+% =============================================================================
+%  Research article skeleton (academic-latex skill) — for preprints, course
+%  papers, reports and venues without a template. When a journal or conference
+%  provides a class (IEEEtran, acmart, elsarticle, llncs, revtex, ...), use that
+%  instead and do not change its fonts, margins or spacing.
+%  Build:  latexmk          (reads .latexmkrc; runs biber and every pass needed)
+% =============================================================================
+%% <<academic-latex:class>>
+\documentclass[11pt, a4paper]{article}
+%% <</academic-latex:class>>
+
+%% <<academic-latex:engine>>
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+%% <</academic-latex:engine>>
+%% <<academic-latex:language>>
+\usepackage[english]{babel}
+%% <</academic-latex:language>>
+\usepackage{microtype}
+%% <<academic-latex:geometry>>
+\usepackage[margin=25mm]{geometry}
+%% <</academic-latex:geometry>>
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{amsmath, amssymb}
+\usepackage[font=small, labelfont=bf]{caption}
+\usepackage{subcaption}
+\usepackage{csquotes}
+\usepackage{authblk}          % \author[1]{...} \affil[1]{...}
+
+%% <<academic-latex:bibliography>>
+\usepackage[backend=biber, style=numeric-comp, sorting=none]{biblatex}
+%% <</academic-latex:bibliography>>
+\addbibresource{references.bib}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage[capitalise]{cleveref}  % always the last package
+
+% TODO: title, authors, affiliations, corresponding-author e-mail.
+\title{Informative Title That States the Main Finding}
+\author[1]{First Author\thanks{Corresponding author: \href{mailto:first.author@example.org}{first.author@example.org}}}
+\author[2]{Second Author}
+\affil[1]{Department, University, City, Country}
+\affil[2]{Institute, Organisation, City, Country}
+\date{}                       % or \today for a dated preprint
+\hypersetup{pdftitle={Informative Title That States the Main Finding}, pdfauthor={First Author, Second Author}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+% TODO: 150-250 words unless the venue says otherwise. Context, gap, aim,
+% method, main results with numbers, implication. No citations.
+Context \ldots{} However, \ldots{} Here we \ldots{} We find that \ldots{} These
+results suggest \ldots
+\end{abstract}
+
+\noindent\textbf{Keywords:} first keyword; second keyword; third keyword
+
+\section{Introduction}\label{sec:introduction}
+% Context -> gap -> what this paper does -> contributions -> outline.
+% TODO: write the introduction.
+Typesetting with \LaTeX{} \autocite{lamport1994latex} separates content from
+presentation; literate programming \autocite{knuth1984literate} applies a
+related idea to code.
+
+\section{Related work}\label{sec:related-work}
+% TODO: synthesise prior work by theme and position this paper.
+
+\section{Methods}\label{sec:methods}
+% TODO: enough detail to reproduce the work (data, tools with versions, parameters).
+\Cref{fig:overview} gives an overview.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\linewidth]{example-image}  % placeholder (mwe package)
+  \caption{Overview of the approach.}
+  \label{fig:overview}
+\end{figure}
+
+\section{Results}\label{sec:results}
+% TODO: report results; call out every figure and table before it appears.
+\Cref{tab:results} summarises the results.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Main results (mean over five runs).}
+  \label{tab:results}
+  \begin{tabular}{l S[table-format=2.1] S[table-format=3.0]}
+    \toprule
+    {Method} & {Accuracy (\%)} & {Time (\unit{\milli\second})} \\
+    \midrule
+    Baseline & 71.2 & 120 \\
+    Proposed & 78.9 & 135 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Discussion}\label{sec:discussion}
+% TODO: interpretation, comparison with prior work, limitations.
+
+\section{Conclusion}\label{sec:conclusion}
+% TODO: the answer to the research question and its implications; no new results.
+
+% Statements many venues require; delete the ones yours does not ask for.
+\section*{Acknowledgements}
+% TODO: people and funding (agency, grant number).
+
+\section*{Data availability}
+% TODO: where the data and code can be obtained (repository + DOI), or why not.
+
+\section*{Author contributions}
+% TODO: e.g. CRediT roles: Conceptualization, Methodology, Software, Writing -- original draft.
+
+\printbibliography
+
+\appendix
+\section{Supplementary details}\label{app:details}
+% TODO: add material or delete the appendix.
+
+\end{document}

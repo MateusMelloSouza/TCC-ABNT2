@@ -1,0 +1,26 @@
+% IEEE conference paper (IEEEtran). Verified with TeX Live 2023.
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts          % lets \thanks work in conference mode
+\usepackage{cite}                     % sorts and compresses numeric citations: [1]-[3]
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\begin{document}
+\title{Paper Title\thanks{Funding acknowledgement goes here.}}
+\author{\IEEEauthorblockN{First Author}
+\IEEEauthorblockA{\textit{Department} \\ \textit{University}\\ City, Country \\ first@example.org}
+\and
+\IEEEauthorblockN{Second Author}
+\IEEEauthorblockA{\textit{Institute} \\ City, Country \\ second@example.org}}
+\maketitle
+\begin{abstract}
+Abstract text, typically 150--250 words, no citations.
+\end{abstract}
+\begin{IEEEkeywords}
+first keyword, second keyword, third keyword
+\end{IEEEkeywords}
+\section{Introduction}
+Literate programming~\cite{knuth1984literate} and \LaTeX~\cite{lamport1994latex}.
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+\end{document}

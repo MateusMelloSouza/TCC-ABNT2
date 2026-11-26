@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: new-thesis-from-formatting-guide
+expected_outcome: |
+  A thesis/ project that compiles without errors or undefined citations/references and implements 
+  every rule: biblatex with style=apa and biber; US Letter; a Times-like 12 pt font; double 
+  spacing; geometry with a 1.5 in left margin and 1 in elsewhere; page numbers top right on every 
+  page including chapter pages; roman page numbers in the front matter and arabic from the first 
+  chapter; a list of abbreviations; an abstract; separate chapter files; build instructions for 
+  the student.

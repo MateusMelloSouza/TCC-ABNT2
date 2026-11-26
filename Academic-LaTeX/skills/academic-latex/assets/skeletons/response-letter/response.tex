@@ -1,0 +1,66 @@
+% !TEX program = pdflatex
+% =============================================================================
+%  Response to reviewers (academic-latex skill).
+%  Quote every comment, answer it, and say exactly what changed and where
+%  (section, page and line numbers of the revised manuscript; compile the
+%  manuscript with \usepackage{lineno} \linenumbers to have line numbers).
+%  A marked-up manuscript: latexdiff old.tex new.tex > diff.tex (then compile diff.tex).
+% =============================================================================
+\documentclass[11pt, a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{microtype}
+\usepackage[margin=25mm]{geometry}
+\usepackage{xcolor}
+\usepackage{csquotes}
+\usepackage[hidelinks]{hyperref}
+
+\newcounter{reviewer}
+\newcounter{comment}[reviewer]
+\newenvironment{reviewer}[1][]{%
+  \stepcounter{reviewer}\section*{Reviewer \thereviewer\ifx\relax#1\relax\else\ (#1)\fi}}{}
+\newenvironment{comment}{%
+  \stepcounter{comment}\par\medskip\noindent
+  \textbf{Comment \thereviewer.\thecomment}\par\nopagebreak
+  \begin{quote}\itshape}{\end{quote}}
+\newenvironment{response}{\par\noindent\textbf{Response.}\ }{\par}
+\newcommand{\revised}[1]{\begin{quote}\color{blue!60!black}#1\end{quote}}  % text as it now reads
+
+\begin{document}
+
+\noindent
+% TODO: editor's name, journal, manuscript number and title.
+Dear Dr.~Editor Name,\par\medskip
+\noindent
+Thank you for the opportunity to revise our manuscript \enquote{Manuscript Title}
+(ID: XXX-0000). We thank the reviewers for their careful reading. Below we
+answer every comment; reviewer comments are in italics, and changed text is
+quoted in blue with its location in the revised manuscript.
+
+\begin{reviewer}
+\begin{comment}
+% TODO: paste the reviewer's comment verbatim.
+The comparison with prior work is incomplete.
+\end{comment}
+\begin{response}
+We agree and added a comparison with three further methods
+(Section~2, p.~4, lines~112--130):
+\revised{\enquote{Compared with \ldots, our approach \ldots}}
+\end{response}
+\end{reviewer}
+
+\begin{reviewer}
+\begin{comment}
+The sample size seems small.
+\end{comment}
+\begin{response}
+% Disagree politely, with evidence, when the request would not improve the paper.
+We respectfully note that \ldots; we now state this limitation explicitly
+(Section~5, p.~11, lines~402--407).
+\end{response}
+\end{reviewer}
+
+\bigskip\noindent Sincerely,\par\noindent The authors
+
+\end{document}

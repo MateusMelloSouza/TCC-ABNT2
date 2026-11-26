@@ -1,0 +1,13 @@
+{
+  "name": "academic-latex",
+  "version": "1.0.0",
+  "description": "Write, cite, format, compile, debug and audit academic documents in LaTeX — theses, dissertations, journal articles, conference papers, proposals and rebuttal letters — with any citation style (APA, IEEE, Chicago, Harvard, Vancouver, MLA, ACM, Nature, ISO 690, ABNT) and any template, plus a writing-session workflow and pre-submission audits.",
+  "author": {
+    "name": "Mateus de Mello Souza",
+    "url": "https://github.com/MateusMelloSouza"
+  },
+  "homepage": "https://github.com/MateusMelloSouza/TCC-ABNT2",
+  "repository": "https://github.com/MateusMelloSouza/TCC-ABNT2",
+  "license": "MIT",
+  "keywords": ["latex", "thesis", "dissertation", "academic-writing", "bibtex", "biblatex", "overleaf", "citations", "apa", "ieee", "acmart", "arxiv"]
+}
