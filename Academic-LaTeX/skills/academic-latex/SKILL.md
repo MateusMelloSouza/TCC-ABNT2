@@ -32,6 +32,10 @@ at the source (`.tex`, `.bib`, preamble, build chain) instead of hand-formatting
 output. Talk to the user in their language; write the document in the
 document's language and register.
 
+Paths such as `scripts/audit-tex.py` and the `references/` files are relative to this
+skill's folder; from the user's project, call the scripts with that folder's
+full path (`python3 <skill-folder>/scripts/audit-tex.py .`).
+
 ## Two ways to use this skill
 
 1. **One-off task** — "fix this citation", "why do I get [?]", "make this table
@@ -98,6 +102,17 @@ once, recommend asking the editor/graduate school, and record the decision in
 | IEEEtran, acmart, elsarticle, llncs, REVTeX, amsart: verified preambles and rules | `references/templates/publisher-classes.md` |
 | Thesis classes (standard classes, memoir, KOMA-Script, classicthesis, university classes), the bundled skeleton | `references/templates/thesis-classes.md` |
 | Profiling any other template | `references/templates/README.md` |
+
+Read only what the task needs — each reference stands alone, and reading all of
+them costs time without improving the result. Typical combinations:
+- **new thesis or paper** → `templates/thesis-classes.md` (§6 turns a formatting
+  guide into a preamble) or `templates/publisher-classes.md`, plus the guide's
+  section of `style-guides.md`;
+- **citations or build broken** → `compilation-and-errors.md` (+ `bibliography.md`
+  when the `.bib` is involved);
+- **check before submitting or defending** → `final-review.md` + `submission.md`;
+- **drafting or revising prose** → `academic-writing.md` (+ `document-types.md`
+  for structure).
 
 ## Choosing a citation stack
 

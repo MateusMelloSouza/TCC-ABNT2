@@ -217,6 +217,15 @@ class NewProjectAndWorkflow(unittest.TestCase):
             self.assertIn(needle, t)
         self.assertIn("$pdf_mode = 4;", (dest / ".latexmkrc").read_text(encoding="utf-8"))
 
+    def test_generated_files_get_normal_permissions(self):
+        import os
+        dest = Path(tempfile.mkdtemp()) / "m"
+        run(sys.executable, SCRIPTS / "new-project.py", dest, "--type", "article")
+        mask = os.umask(0)
+        os.umask(mask)
+        for f in ("main.tex", "references.bib", ".latexmkrc"):
+            self.assertEqual((dest / f).stat().st_mode & 0o777, 0o666 & ~mask, f"{f}: mkstemp's 0600 must not leak")
+
     def test_refuses_non_empty_destination(self):
         dest = Path(tempfile.mkdtemp())
         (dest / "keep.txt").write_text("x")
@@ -256,6 +265,16 @@ class CompileCheck(unittest.TestCase):
         for needle in ("nokey2021", "sec:missing", "duplicate labels: sec:intro", "overfull boxes: 1",
                        "bibliography tool run: biber", "0 not embedded, 0 Type 3", "Section ??"):
             self.assertIn(needle, out)
+
+    def test_abbreviation_list_does_not_count_as_a_table(self):
+        dest = Path(tempfile.mkdtemp()) / "g"
+        run(sys.executable, SCRIPTS / "new-project.py", dest, "--type", "thesis")
+        main = dest / "main.tex"
+        main.write_text(main.read_text(encoding="utf-8").replace(
+            "\\begin{document}", "\\counterwithout{table}{chapter}\n\\begin{document}", 1), encoding="utf-8")
+        run("latexmk", "-pdf", "-interaction=nonstopmode", "main.tex", cwd=dest)
+        text = run("pdftotext", dest / "main.pdf", "-").stdout
+        self.assertIn("Table 1:", text, "glossary longtable styles advance the table counter")
 
     def test_generated_thesis_is_clean(self):
         dest = Path(tempfile.mkdtemp()) / "c"

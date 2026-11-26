@@ -75,7 +75,7 @@
 % ---- Hyperlinks, acronyms, clever references (keep this order) -------------------
 \usepackage[hidelinks]{hyperref}  % drop hidelinks for coloured links in the PDF
 \hypersetup{pdftitle={\thesistitle}, pdfauthor={\thesisauthor}}
-\usepackage[acronym, nomain, toc, nonumberlist, nopostdot, style=long]{glossaries}  % after hyperref
+\usepackage[acronym, nomain, toc, nonumberlist, nopostdot, style=alttree]{glossaries}  % after hyperref
 \makenoidxglossaries          % no external tool; switch to \makeglossaries + makeglossaries for big lists
 \input{frontmatter/abbreviations}
 \usepackage[capitalise, noabbrev]{cleveref}    % always the last package
@@ -92,6 +92,7 @@
 \tableofcontents
 \listoffigures
 \listoftables
+\glsfindwidesttoplevelname[\acronymtype]  % aligns the descriptions; alttree is not a table, so table numbering is unaffected
 \printnoidxglossary[type=\acronymtype, title={List of Abbreviations}]
 
 \mainmatter                   % arabic page numbers from Chapter 1

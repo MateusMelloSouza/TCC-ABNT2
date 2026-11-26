@@ -317,6 +317,9 @@ parallel in grammar; a list is not a substitute for argument in prose sections.
 - Expand abbreviations again in the abstract if the guide requires it (the
   abstract must stand alone): `\glsreset{key}` or simply write it out.
 - `\newacronym` in `glossaries` loaded **after** hyperref gives clickable entries.
+- Glossary styles `long*` and `super*` are (long)tables: they advance the **table counter**, so with
+  continuous numbering the first real table becomes "Table 2" (verified). Use `alttree` with
+  `\glsfindwidesttoplevelname[\acronymtype]` before printing (aligned, not a table), `index` or `listdotted`.
 
 ## 13. Quotations, emphasis, dashes, spaces
 

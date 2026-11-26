@@ -918,12 +918,23 @@ def render(R: dict) -> str:
     return "\n".join(L) + "\n"
 
 
+def _target_mode(path: Path) -> int:
+    """Keep an existing file's mode; new files get the usual 0666 & ~umask (mkstemp makes them 0600)."""
+    try:
+        return os.stat(path).st_mode & 0o7777
+    except FileNotFoundError:
+        mask = os.umask(0)
+        os.umask(mask)
+        return 0o666 & ~mask
+
+
 def atomic_write(path: Path, data: str):
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp = tempfile.mkstemp(prefix=path.name + ".", suffix=".new", dir=str(path.parent))
     try:
         with os.fdopen(fd, "wb") as fh:
             fh.write(data.encode("utf-8"))
+        os.chmod(tmp, _target_mode(path))
         os.replace(tmp, path)
     except Exception:
         try:

@@ -34,7 +34,7 @@ Design choices, all verified by compiling every style and engine combination:
 footnotes and floats stay single); `\pagestyle{plain}` (a fancyhdr block for
 top-right numbers is in the comments); `\frontmatter`/`\mainmatter` for roman and
 arabic numbering; abbreviations with `glossaries` + `\makenoidxglossaries`
-(no external tool) printed as a two-column list; biblatex + biber with the
+(no external tool) printed with the `alttree` style (aligned, and not a table — `long` styles would advance the table counter); biblatex + biber with the
 chosen style; `hyperref` with the title page excluded from page anchors (it
 avoids the `destination with the same identifier (name{page.i})` warning);
 `cleveref` last. Every place the author must fill carries a `% TODO:` comment,
@@ -118,7 +118,7 @@ Turn every rule of the guide into a line of preamble, then verify it in the PDF:
 | Rule | Implementation | Verify |
 |---|---|---|
 | Paper size | `a4paper` / `letterpaper` class option | `pdfinfo` Page size |
-| Margins (binding) | geometry / memoir / KOMA (above) | `\usepackage{showframe}`, ruler on a printout |
+| Margins (binding) | geometry / memoir / KOMA (above) | `\usepackage{showframe}`, ruler on a printout; microtype's protrusion hangs punctuation 1–2 pt into the margin (optical alignment) — if a format checker measures margins strictly, load `\usepackage[protrusion=false]{microtype}` |
 | Font and size | class option `12pt`; font package | `pdffonts` |
 | Line spacing | setspace (`\doublespacing`), memoir `\DoubleSpacing` | count lines per page |
 | Single-spaced elements (quotes, captions, bibliography) | `singlespace` env, `\AtBeginBibliography{\singlespacing}` | visual |
