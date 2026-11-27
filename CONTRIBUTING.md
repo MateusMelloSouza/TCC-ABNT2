@@ -21,7 +21,7 @@ modelo, mais alguns scripts. Contribuições úteis, em ordem de valor:
 
 ```bash
 python3 scripts/check.py           # frontmatter, links, manifests, scripts, dados pessoais
-bash scripts/package.sh            # regenera dist/tcc-abnt.zip (commite o zip junto)
+bash scripts/package.sh            # gera dist/tcc-abnt.zip localmente (não commite: a release o anexa)
 ```
 
 Testes manuais úteis: compilar o modelo canônico (`abntex2-modelo-trabalho-academico`)

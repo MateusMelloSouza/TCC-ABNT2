@@ -1,5 +1,20 @@
 # Changelog
 
+## Não lançado
+
+- **Layout corrigido:** o conteúdo saiu da subpasta `TCC-ABNT2/` para a raiz do
+  repositório. Antes, `/plugin marketplace add` não achava o `.claude-plugin/` e o
+  GitHub não executava o CI.
+- `.gitattributes` com LF em tudo (CRLF só no `.bat`). O `dist/tcc-abnt.zip` deixa de
+  ser versionado: o CI o gera e a release o anexa (o link do README aponta para a
+  última release).
+- `compile-check.sh` agora sai com código 3 quando restam erros, citações ou
+  referências indefinidas. `--lenient` mantém o comportamento antigo. O PDF velho é
+  apagado antes do build, e o script passa a funcionar no bash 3.2 (macOS).
+- O CI falha com citações ou referências indefinidas e testa um caso negativo.
+- `check.py`: a lista de dados pessoais agora detecta caminhos reais de perfil do Windows e
+  varre o repositório inteiro.
+
 ## 2.0.0 — 2026-09-15
 
 Primeira versão pública. Reescrita do skill pessoal `tcc-abnt` (v1, jun. 2026) para

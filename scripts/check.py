@@ -93,14 +93,34 @@ for sh in list((SKILL / "scripts").glob("*.sh")) + list((ROOT / "scripts").glob(
     if r.returncode:
         err(f"{sh.relative_to(ROOT)}: bash -n failed: {r.stderr.strip()[:200]}")
 
-# --- personal-data denylist (a public skill must be generic) ------------------------------------
-DENY = [r"OneDrive", r"TCC_01_11_2025", r"C:\\\\Users", r"Drone_Detection", r"mateu\b"]
-for f in SKILL.rglob("*"):
-    if f.is_file() and f.suffix in {".md", ".py", ".sh", ".bat", ".json", ".txt"}:
-        t = f.read_text(encoding="utf-8", errors="replace")
-        for pat in DENY:
-            if re.search(pat, t):
-                err(f"{f.relative_to(ROOT)}: contains denylisted personal reference /{pat}/")
+# --- personal-data denylist (the repo must be generic) ------------------------------------------
+# Case-insensitive, per line. The public author name and GitHub handle are deliberately allowed.
+DENY = [
+    r"OneDrive",
+    r"TCC_01_11_2025",
+    r"C:[\\/]+Users",            # Windows profile path, backslash or forward slash
+    r"Drone_Detection",
+    r"Users[\\/]+mateu\b",       # the owner's user folder, e.g. Users\mateu or Users/mateu
+    r"\bmateusmellosouza@",      # the owner's personal email local part
+]
+SKIP_DIRS = {".git", "dist", "build", "__pycache__"}
+SKIP_FILES = {Path(__file__).resolve(), ROOT / "FORK-PLAN.md"}  # check.py holds the patterns
+TEXT_SUFFIXES = {".md", ".py", ".sh", ".bat", ".json", ".txt", ".yml", ".yaml", ".tex", ".bib", ".sty", ".cls"}
+for f in ROOT.rglob("*"):
+    rel = f.relative_to(ROOT)
+    if not f.is_file() or SKIP_DIRS & set(rel.parts) or f.resolve() in SKIP_FILES:
+        continue
+    if f.suffix and f.suffix not in TEXT_SUFFIXES:  # extensionless files (latexmkrc, ...) are scanned
+        continue
+    try:
+        lines = f.read_text(encoding="utf-8").splitlines()
+    except UnicodeDecodeError:  # binary file
+        continue
+    for pat in DENY:
+        rx = re.compile(pat, re.I)
+        for n, line in enumerate(lines, 1):
+            if rx.search(line):
+                err(f"{rel.as_posix()}:{n}: contains denylisted personal reference /{pat}/")
 
 if errors:
     print("CHECK FAILED:")

@@ -16,8 +16,8 @@ jobs:
           python-version: "3.11"
       - name: Sanity checks (frontmatter, links, manifests, scripts, denylist)
         run: python3 scripts/check.py
-      - name: dist/tcc-abnt.zip matches the sources
-        run: bash scripts/package.sh --check
+      - name: Build the ZIP
+        run: bash scripts/package.sh
 
   latex-smoke:
     runs-on: ubuntu-latest
@@ -44,7 +44,25 @@ jobs:
           python3 "$GITHUB_WORKSPACE/skills/tcc-abnt/scripts/audit-tex.py" . --quiet --out audit.md --json audit.json
           python3 "$GITHUB_WORKSPACE/skills/tcc-abnt/scripts/init-workflow.py" . --build-helpers
           test -f .tcc-workflow/STATUS.md && test -f .tcc-workflow/tools/audit-tex.py
-          python3 -c "import json; p=json.load(open('audit.json'))['log']['pages']; assert 60 <= p <= 120, p"   # the model renders ~80 pages
+          python3 - <<'PY'
+          import json
+          log = json.load(open('audit.json'))['log']
+          assert log['pages'] and 60 <= log['pages'] <= 120, log['pages']   # the model renders ~80 pages
+          assert not log['undefined_citations'], log['undefined_citations']
+          assert not log['undefined_references'], log['undefined_references']
+          assert not log['errors'], log['errors']
+          PY
+      - name: Negative smoke test - compile-check.sh must fail on an undefined citation
+        run: |
+          rm -rf /tmp/modelo-bad && mkdir -p /tmp/modelo-bad
+          cp -r /tmp/modelo/. /tmp/modelo-bad/
+          cd /tmp/modelo-bad
+          rm -rf build
+          sed -i 's/\\end{document}/\\cite{doesnotexist}\n\\end{document}/' main.tex
+          grep -q 'doesnotexist' main.tex
+          rc=0; bash "$GITHUB_WORKSPACE/skills/tcc-abnt/scripts/compile-check.sh" main.tex || rc=$?
+          # 3 = PDF built but undefined citations/refs or errors; anything else means a different failure
+          test "$rc" -eq 3 || { echo "expected exit 3 (undefined citation), got $rc"; exit 1; }
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')
