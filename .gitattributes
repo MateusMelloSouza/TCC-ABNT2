@@ -1,0 +1,6 @@
+# Normalize line endings so scripts run on Linux CI and the ZIP is reproducible from any OS.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.zip binary
+*.pdf binary
+*.png binary

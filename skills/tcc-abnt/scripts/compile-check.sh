@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # compile-check.sh — build an abnTeX2 project and print a short, actionable summary.
 #
-#   bash compile-check.sh [main.tex] [--outdir DIR] [--engine pdflatex|xelatex|lualatex] [--quick]
+#   bash compile-check.sh [main.tex] [--outdir DIR] [--engine pdflatex|xelatex|lualatex] [--quick] [--lenient]
 #
 # Defaults: main file auto-detected (the .tex containing \begin{document}), outdir "build",
 # engine pdflatex, full rebuild (latexmk -gg). --quick skips the full rebuild.
@@ -9,16 +9,27 @@
 #
 # Prints: pages · undefined citations · undefined references · LaTeX errors (minus the
 # patterns listed one per line in .tcc-workflow/benign-notices.txt) · overfull/float-too-large
-# counts · placeholder scan. Exit code 1 when no PDF was produced. Raw log: <outdir>/compile.log
+# counts · placeholder scan. Raw log: <outdir>/compile.log
+# The previous output PDF is removed before building, so a stale PDF never counts as success.
+#
+# Exit codes:
+#   0  PDF produced, no LaTeX errors, no undefined citations, no undefined references
+#   1  no PDF produced
+#   2  usage error / no main .tex found
+#   3  PDF produced but the log shows LaTeX errors, undefined citations or undefined references
+#      (--lenient restores the old behaviour: exit 0 whenever a PDF exists)
 set -uo pipefail
 
-MAIN=""; OUTDIR="build"; ENGINE="pdflatex"; FULL="-gg"
+MAIN=""; OUTDIR="build"; ENGINE="pdflatex"; FULL="-gg"; LENIENT=0
 while [ $# -gt 0 ]; do
   case "$1" in
-    --outdir) OUTDIR="$2"; shift 2 ;;
-    --engine) ENGINE="$2"; shift 2 ;;
+    --outdir|--engine)
+      [ $# -ge 2 ] || { echo "compile-check.sh: $1 needs a value" >&2; exit 2; }
+      if [ "$1" = --outdir ]; then OUTDIR="$2"; else ENGINE="$2"; fi
+      shift 2 ;;
     --quick) FULL=""; shift ;;
-    -h|--help) sed -n '2,13p' "$0"; exit 0 ;;
+    --lenient) LENIENT=1; shift ;;
+    -h|--help) sed -n '2,20p' "$0"; exit 0 ;;
     *) MAIN="$1"; shift ;;
   esac
 done
@@ -51,8 +62,9 @@ if [ ! -f .latexmkrc ] && [ ! -f latexmkrc ] && grep -rqs --include='*.tex' '\\m
   GLOSS_ARGS=(-e 'add_cus_dep("acn","acr",0,"makeglossaries"); add_cus_dep("glo","gls",0,"makeglossaries"); sub makeglossaries { my ($base,$path)=fileparse($_[0]); my $cwd=Cwd::getcwd(); chdir $path if $path; my $r=system("makeglossaries",$base); chdir $cwd; return $r; }')
 fi
 
+rm -f "$OUTDIR/$BASE.pdf"
 echo "== build: latexmk $ENG $FULL -outdir=$OUTDIR $MAIN"
-latexmk $ENG $FULL -f -interaction=nonstopmode -file-line-error -outdir="$OUTDIR" "${GLOSS_ARGS[@]}" "$MAIN" > "$OUTDIR/compile.log" 2>&1
+latexmk $ENG $FULL -f -interaction=nonstopmode -file-line-error -outdir="$OUTDIR" ${GLOSS_ARGS[@]+"${GLOSS_ARGS[@]}"} "$MAIN" > "$OUTDIR/compile.log" 2>&1
 LOG="$OUTDIR/$BASE.log"; PDF="$OUTDIR/$BASE.pdf"
 
 echo "== PDF"
@@ -74,7 +86,7 @@ refs=$(grep -oE "Reference \`[^']+' on page" "$LOG" 2>/dev/null | sed -E "s/Refe
 
 echo "== LaTeX errors"
 BENIGN=".tcc-workflow/benign-notices.txt"
-errs=$(grep -E "^!|^\./.*:[0-9]+: " "$LOG" 2>/dev/null | sort -u)
+errs=$(grep -E "^!|^([A-Za-z]:)?[^ :]+:[0-9]+: " "$LOG" 2>/dev/null | sort -u)
 if [ -n "$errs" ] && [ -f "$BENIGN" ]; then
   while IFS= read -r pat; do
     [ -z "$pat" ] && continue; case "$pat" in \#*) continue ;; esac
@@ -95,3 +107,8 @@ ph=$( { grep -rniE --include='*.tex' --exclude-dir="$OUTDIR" --exclude-dir='.tcc
 
 echo "== done — full log: $OUTDIR/compile.log · LaTeX log: $LOG"
 [ -f "$PDF" ] || exit 1
+if [ "$LENIENT" -eq 0 ] && { [ -n "$errs" ] || [ -n "$cites" ] || [ -n "$refs" ]; }; then
+  echo "== FAILED — LaTeX errors, undefined citations or undefined references above (use --lenient to ignore)" >&2
+  exit 3
+fi
+exit 0

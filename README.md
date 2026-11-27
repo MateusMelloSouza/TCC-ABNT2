@@ -54,7 +54,8 @@ no `STATUS.md`. Detalhes em
 
 ### Claude.ai e app desktop (Cowork)
 
-1. Baixe [`dist/tcc-abnt.zip`](https://github.com/MateusMelloSouza/TCC-ABNT2/raw/main/dist/tcc-abnt.zip)
+1. Baixe [`tcc-abnt.zip`](https://github.com/MateusMelloSouza/TCC-ABNT2/releases/latest/download/tcc-abnt.zip)
+   da [última release](https://github.com/MateusMelloSouza/TCC-ABNT2/releases/latest)
    (a pasta `tcc-abnt/` é a raiz do ZIP, como o claude.ai exige).
 2. No claude.ai: **Customize → Skills → "+" → Create skill → Upload a skill** e envie o ZIP.
    O skill aparece na lista e pode ser ligado/desligado; skills da conta também ficam
@@ -154,7 +155,7 @@ skills/tcc-abnt/
 ├── scripts/                      # setup-sandbox-latex.sh, compile-check.sh, audit-tex.py, init-workflow.py
 └── assets/                       # modelos de STATUS/TODO/log, latexmkrc, gitignore, vscode, compilar.bat
 .claude-plugin/                   # plugin.json + marketplace.json (Claude Code)
-dist/tcc-abnt.zip                 # pacote para upload no claude.ai
+dist/tcc-abnt.zip                 # gerado por scripts/package.sh (não versionado; anexado às releases)
 ```
 
 ## Fontes consultadas
@@ -197,7 +198,7 @@ writing-session workflow with in-project state (`.tcc-workflow/`), and ships
 dependency-free scripts to install the toolchain in sandboxes, compile with a filtered
 log summary, and audit a project (placeholders, citations vs `.bib`, labels, floats
 without source, unused acronyms, resumo/abstract). Install: upload
-`dist/tcc-abnt.zip` in claude.ai (Customize → Skills), or in Claude Code
+`tcc-abnt.zip` from the latest GitHub release in claude.ai (Customize → Skills), or in Claude Code
 `/plugin marketplace add MateusMelloSouza/TCC-ABNT2` then
 `/plugin install tcc-abnt2@tcc-abnt2`. Skill instructions are in English; the
 documents it writes are in Brazilian Portuguese. MIT.
