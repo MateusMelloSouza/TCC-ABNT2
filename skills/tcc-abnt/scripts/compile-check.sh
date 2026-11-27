@@ -63,6 +63,10 @@ if [ ! -f .latexmkrc ] && [ ! -f latexmkrc ] && grep -rqs --include='*.tex' '\\m
 fi
 
 rm -f "$OUTDIR/$BASE.pdf"
+# TeX wraps log lines at 79 columns by default, which cuts error messages in the middle
+# ("Package babel E") and defeats the benign-notice patterns. TeX Live reads these from
+# the environment; other distributions ignore them.
+export max_print_line=10000 error_line=254 half_error_line=238
 echo "== build: latexmk $ENG $FULL -outdir=$OUTDIR $MAIN"
 latexmk $ENG $FULL -f -interaction=nonstopmode -file-line-error -outdir="$OUTDIR" ${GLOSS_ARGS[@]+"${GLOSS_ARGS[@]}"} "$MAIN" > "$OUTDIR/compile.log" 2>&1
 LOG="$OUTDIR/$BASE.log"; PDF="$OUTDIR/$BASE.pdf"

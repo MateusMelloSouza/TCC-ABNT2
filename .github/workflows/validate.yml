@@ -38,6 +38,15 @@ jobs:
           mkdir -p /tmp/modelo && cp "$(dirname "$MODEL")"/abntex2-modelo-* /tmp/modelo/
           cd /tmp/modelo && mv abntex2-modelo-trabalho-academico.tex main.tex
           bash "$GITHUB_WORKSPACE/skills/tcc-abnt/scripts/compile-check.sh" main.tex
+      - name: Upload the model's build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: modelo-build-logs
+          path: |
+            /tmp/modelo/build/*.log
+            /tmp/modelo/build/*.blg
+          if-no-files-found: ignore
       - name: audit-tex.py and init-workflow.py on the model
         run: |
           cd /tmp/modelo
