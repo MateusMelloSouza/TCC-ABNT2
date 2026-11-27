@@ -37,4 +37,11 @@ documents in any language, style guide and template.
 - **Tests and CI**: unit tests on fixture projects, the LaTeX matrix, template
   documents; a GitHub Actions workflow that installs TeX through the setup script.
 - **Evals**: test prompts in `skills/academic-latex/evals/` (the `claude plugin eval`
-  layout).
+  layout). First round: 3 cases (fix broken biblatex citations, set up a thesis from a
+  formatting guide, audit a double-blind IEEE submission), each run with and without
+  the skill. All 30 assertions passed in both configurations, so the base model
+  already handles these tasks. With the skill, mean time was 23% lower (the thesis
+  setup started from the tested skeleton) and tokens were 5% higher. The round found
+  two bugs, fixed with regression tests: generated files were mode 0600, and the
+  skeleton's glossary style advanced the table counter. It also showed that a setup
+  run read references it did not need, so SKILL.md now has a reading guide.
